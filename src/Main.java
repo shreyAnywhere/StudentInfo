@@ -123,26 +123,64 @@ public class Main {
                         System.out.println("Name:" + obj.getFullName() + " Standard:" + obj.getStd() + " Division:" + obj.getDiv());
                     break;
                 case 3:
-                    System.out.println("Enter the roll number/emailID/phone number:");
-                    int inputRollNumber = scanner.nextInt();
+                    System.out.println("Enter the 1.roll number 2.emailID 3.phone number:");
+                    int userInput = scanner.nextInt();
 
-                    if(rollNumberVisited.get(inputRollNumber)  == null){
-                        System.out.println("Entered roll number is not registered.");
-                    }
-                    else {
-                        for(Student obj : studentList)
-                        {
-                            if(obj.getRollNumber() == inputRollNumber)
-                            {
-                                System.out.println("Name:" + obj.getFullName() + " Standard:" + obj.getStd() + " Division:" + obj.getDiv());
-                                break;
+                    switch (userInput) {
+                        case 1 -> {
+                            System.out.println("enter roll number");
+                            int userInputRollNumber = scanner.nextInt();
+                            if (rollNumberVisited.get(userInputRollNumber) == null) {
+                                System.out.println("Entered roll number is not registered.");
+                            } else {
+                                for (Student obj : studentList) {
+                                    if (obj.getRollNumber() == userInputRollNumber) {
+                                        System.out.println("Name:" + obj.getFullName() + " Standard:" + obj.getStd() + " Division:" + obj.getDiv());
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        case 2 -> {
+                            System.out.println("enter emailID");
+                            String userEmailID = scanner.next();
+                            if (emailIDVisited.get(userEmailID) == null) {
+                                System.out.println("Entered email ID is not registered.");
+                            } else {
+                                Break:
+                                for (Student obj : studentList) {
+                                    for (int i = 0; i < obj.getEmailID().size(); i++) {
+                                        if (Objects.equals(userEmailID, obj.getEmailID().get(i))) {
+                                            System.out.println("Name:" + obj.getFullName() + " Standard:" + obj.getStd() + " Division:" + obj.getDiv());
+                                            break Break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        case 3 -> {
+                            System.out.println("enter phone number:");
+                            long userPhoneNumber = scanner.nextLong();
+                            if (phoneNumberVisited.get(userPhoneNumber) == null) {
+                                System.out.println("Entered phone number is not registered.");
+                            } else {
+                                Break:
+                                for (Student obj : studentList) {
+                                    for (int i = 0; i < obj.getPhoneNumber().size(); i++) {
+                                        if (userPhoneNumber == obj.getPhoneNumber().get(i)) {
+                                            System.out.println("Name:" + obj.getFullName() + " Standard:" + obj.getStd() + " Division:" + obj.getDiv());
+                                            break Break;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
+
                     break;
                 case 4:
                     System.out.println("Enter the roll number:");
-                    inputRollNumber = scanner.nextInt();
+                    int inputRollNumber = scanner.nextInt();
 
                     if(rollNumberVisited.get(inputRollNumber)  == null){
                         System.out.println("Entered rollnumber is not registered.");

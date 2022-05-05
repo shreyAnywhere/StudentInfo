@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Student {
 
     private int rollNumber;
@@ -5,19 +8,19 @@ public class Student {
     private String surname;
     private int std;
     private String div;
-    private long phoneNumber;
-    private String emailID;
+    private List<Long> phoneNumbers = new ArrayList<>();
+    private List<String> emailID = new ArrayList<>();
 
     public Student() {
     }
 
-    public Student(int rollNumber, String name, String surname, int std, String div, long phoneNumber, String emailID) {
+    public Student(int rollNumber, String name, String surname, int std, String div, List<Long> phoneNumber, List<String> emailID) {
         this.rollNumber = rollNumber;
         this.name = name;
         this.surname = surname;
         this.std = std;
         this.div = div;
-        this.phoneNumber = phoneNumber;
+        this.phoneNumbers = phoneNumber;
         this.emailID = emailID;
     }
 
@@ -61,19 +64,19 @@ public class Student {
         this.div = div;
     }
 
-    public long getPhoneNumber() {
-        return phoneNumber;
+    public List<Long> getPhoneNumber() {
+        return phoneNumbers;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(List<Long> phoneNumber) {
+        this.phoneNumbers = phoneNumber;
     }
 
-    public String getEmailID() {
+    public List<String> getEmailID() {
         return emailID;
     }
 
-    public void setEmailID(String emailID) {
+    public void setEmailID(List<String> emailID) {
         this.emailID = emailID;
     }
 

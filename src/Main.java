@@ -1,11 +1,14 @@
 
-import java.io.Console;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
     public static List<Student> studentList = new ArrayList<>();
     public static Map<Integer, Boolean> rollNumberVisited = new HashMap<>();
+    public static Map<Long, Boolean> phoneNumberVisited = new HashMap<>();
+    public static Map<String, Boolean> emailIDVisited = new HashMap<>();
 
     public static boolean checkPhoneNumber(long phoneNumber){
         int numOfDigits = 0;
@@ -16,9 +19,15 @@ public class Main {
             numOfDigits++;
         }
 
-        if(numOfDigits != 10)
-            return false;
-        return true;
+        return numOfDigits == 10;
+    }
+
+    public static boolean checkEmailID(String emailID){
+        String regex = "^(.+)@(.+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(emailID);
+
+        return matcher.matches();
     }
 
     public static void main(String[] args) {
@@ -28,7 +37,7 @@ public class Main {
             //Console console = System.console();
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("1.Add new student 2.Display all students 3.Display the student with given roll number 4.Delete a student 5.Exit");
+            System.out.println("1.Add new student 2.Display all students 3.Display the student with given information 4.Delete a student 5.Exit");
             int input = scanner.nextInt();
 
             switch (input){
@@ -58,21 +67,51 @@ public class Main {
                     System.out.println("Enter division:");
                     String div = scanner.next();
 
-                    long phoneNumber;
-                    while(true){
-                        System.out.println("Enter phone number:");
-                        phoneNumber = scanner.nextLong();
-                        if(!checkPhoneNumber(phoneNumber)){
-                            System.out.println("Phone number is not valid. Enter a valid one.");
-                            continue;
+                    long phoneNumber = 0;
+                    System.out.println("How many phone number you want add?");
+                    int numOfPhoneNumbers = scanner.nextInt();
+                    List<Long> phoneNumberList = new ArrayList<>();
+                    for(int i=0;i<numOfPhoneNumbers;i++){
+                        while(true){
+                            System.out.println("Enter phone number:");
+                            phoneNumber = scanner.nextLong();
+                            if(!checkPhoneNumber(phoneNumber)){
+                                System.out.println("Phone number is not valid. Enter a valid one.");
+                                continue;
+                            }
+                            else if(phoneNumberVisited.get(phoneNumber) != null){
+                                System.out.println("Phone number is already been registered.");
+                                continue;
+                            }
+                            phoneNumberVisited.put(phoneNumber, true);
+                            phoneNumberList.add(phoneNumber);
+                            break;
                         }
-                        break;
                     }
 
-                    System.out.println("Enter email ID:");
-                    String emailID = scanner.next();
+                    String emailID = "";
+                    System.out.println("How many email IDs you want add?");
+                    int numOfEmailIDs = scanner.nextInt();
+                    List<String> emailIDList = new ArrayList<>();
+                    for(int i=0;i<numOfEmailIDs;i++){
+                        while(true) {
+                            System.out.println("Enter email ID:");
+                            emailID = scanner.next();
+                            if(!checkEmailID(emailID)){
+                                System.out.println("EmailID is not valid. Enter a valid one.");
+                                continue;
+                            }
+                            else if(emailIDVisited.get(emailID) != null){
+                                System.out.println("EmailID is already been registered.");
+                                continue;
+                            }
+                            emailIDVisited.put(emailID, true);
+                            emailIDList.add(emailID);
+                            break;
+                        }
+                    }
 
-                    Student student = new Student(rollNumber, name, surname, std, div, phoneNumber, emailID);
+                    Student student = new Student(rollNumber, name, surname, std, div, phoneNumberList, emailIDList);
                     studentList.add(student);
                     break;
                 case 2:
@@ -84,11 +123,11 @@ public class Main {
                         System.out.println("Name:" + obj.getFullName() + " Standard:" + obj.getStd() + " Division:" + obj.getDiv());
                     break;
                 case 3:
-                    System.out.println("Enter the rollnumber:");
+                    System.out.println("Enter the roll number/emailID/phone number:");
                     int inputRollNumber = scanner.nextInt();
 
                     if(rollNumberVisited.get(inputRollNumber)  == null){
-                        System.out.println("Entered rollnumber is not registered.");
+                        System.out.println("Entered roll number is not registered.");
                     }
                     else {
                         for(Student obj : studentList)

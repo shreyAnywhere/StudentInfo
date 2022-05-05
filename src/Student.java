@@ -5,16 +5,20 @@ public class Student {
     private String surname;
     private int std;
     private String div;
+    private long phoneNumber;
+    private String emailID;
 
     public Student() {
     }
 
-    public Student(int rollNumber, String name, String surname, int std, String div) {
+    public Student(int rollNumber, String name, String surname, int std, String div, long phoneNumber, String emailID) {
         this.rollNumber = rollNumber;
         this.name = name;
         this.surname = surname;
         this.std = std;
         this.div = div;
+        this.phoneNumber = phoneNumber;
+        this.emailID = emailID;
     }
 
     public int getRollNumber() {
@@ -55,6 +59,22 @@ public class Student {
 
     public void setDiv(String div) {
         this.div = div;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmailID() {
+        return emailID;
+    }
+
+    public void setEmailID(String emailID) {
+        this.emailID = emailID;
     }
 
     public String getFullName() {
